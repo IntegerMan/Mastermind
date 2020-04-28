@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <form @submit.prevent="submitGuess">
       <label for="yourGuess">What is your guess?</label>
       <input
         type="text"
@@ -10,8 +10,8 @@
         :minlength="guessLength"
         v-model="guess"
       />
-      <button>Guess</button>
-    </div>
+      <button type="submit">Guess</button>
+    </form>
     <turns-remaining />
   </div>
 </template>
@@ -23,8 +23,16 @@ export default {
   components: {
     TurnsRemaining
   },
-  props: {
-    guess: String
+  data: () => {
+    return {
+      guess: "1234"
+    };
+  },
+  methods: {
+    submitGuess(): void {
+      console.log("Guessing " + this.guess, this.$store.state);
+      this.$store.commit("guess", this.guess);
+    }
   },
   computed: {
     guessLength(): number {

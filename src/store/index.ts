@@ -13,7 +13,16 @@ export default new Vuex.Store({
       new GameMove('ROYG', 1, 1)
     ]
   },
-  mutations: {},
+  mutations: {
+    guess(state, guess): void {
+      const numCorrect = 0; // TODO: Figure this out
+      const numMisplaced = 0; // TODO: Figure this out
+      const move: GameMove = new GameMove(guess, numCorrect, numMisplaced);
+
+      state.history.push(move);
+      state.movesLeft--;
+    }
+  },
   actions: {},
   modules: {}
 });
