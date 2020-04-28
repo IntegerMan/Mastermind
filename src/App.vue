@@ -7,15 +7,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Vue } from "vue-property-decorator";
 import HistoryList from "./components/HistoryList.vue";
+import store from "./store/index";
 
-@Component({
+export default Vue.extend({
+  name: "App",
   components: {
     HistoryList
-  }
-})
-export default class App extends Vue {}
+  },
+  store: store
+});
 </script>
 
 <style lang="scss">
