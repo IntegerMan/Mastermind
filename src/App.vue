@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <h1>Mastermind</h1>
+    <p>Kata implementation by Matt Eland</p>
+    <HistoryList />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "./components/HelloWorld.vue";
+import HistoryList from "./components/HistoryList.vue";
 
 @Component({
   components: {
-    HelloWorld
+    HistoryList
   }
 })
 export default class App extends Vue {}
