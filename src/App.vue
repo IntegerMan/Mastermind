@@ -4,9 +4,10 @@
     <p>Kata implementation by Matt Eland</p>
     <HistoryList />
     <div>
-      <h2>Your Move</h2>
+      <h2>Your Guess</h2>
       <enter-guess />
     </div>
+    <a @click="reset" href="#">Restart Game</a>
   </div>
 </template>
 
@@ -22,7 +23,16 @@ export default Vue.extend({
     HistoryList,
     EnterGuess
   },
-  store: store
+  store: store,
+  created: () => {
+    console.log('App created!');
+    store.commit("reset");
+  },
+  methods: {
+    reset(): void {
+      store.commit("reset");
+    }
+  }
 });
 </script>
 

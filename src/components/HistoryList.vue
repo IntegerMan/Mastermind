@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Past Moves</h2>
+    <h2>Past Guesses</h2>
     <HistoryEntry
       v-for="(move, index) of moves"
       v-bind:key="index"
