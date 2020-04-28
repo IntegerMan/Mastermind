@@ -1,7 +1,4 @@
 export class GameMove {
-    representation: string;
-
-    constructor(representation: string) {
-        this.representation = representation;
+    constructor(public representation: string, public exactlyCorrect: number, public partiallyCorrect: number) {
     }
 }

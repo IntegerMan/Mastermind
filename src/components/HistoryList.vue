@@ -1,23 +1,22 @@
 <template>
   <div>
-    <div>
-      <h2>Past Moves</h2>
-      <p v-for="move of moves" v-bind:key="move.representation">
-        {{ move.representation }}
-      </p>
-    </div>
-    <div>
-      <h2>Your Move</h2>
-
-      <p>You have {{ movesLeft }} move(s) remaining.</p>
-    </div>
+    <h2>Past Moves</h2>
+    <HistoryEntry
+      v-for="(move, index) of moves"
+      v-bind:key="index"
+      :move="move"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { GameMove } from "../models/GameMove";
+import HistoryEntry from "./HistoryEntry.vue";
 
 export default {
+  components: {
+    HistoryEntry
+  },
   computed: {
     moves(): GameMove[] {
       return this.$store.state.history;
