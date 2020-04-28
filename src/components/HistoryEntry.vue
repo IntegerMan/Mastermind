@@ -1,6 +1,9 @@
 <template>
   <div>
     {{ move.representation }}
+    <span>
+      ({{ move.exactlyCorrect }} correct, {{ move.partiallyCorrect }} misplaced)
+    </span>
   </div>
 </template>
 

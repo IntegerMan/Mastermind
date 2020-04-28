@@ -20,12 +20,27 @@ export default new Vuex.Store({
       state.history = [];
     },
     guess(state, guess): void {
-      const numCorrect = 0; // TODO: Figure this out
-      const numMisplaced = 0; // TODO: Figure this out
       if (guess && guess.length === state.solution.length) {
-        const move: GameMove = new GameMove(guess, numCorrect, numMisplaced);
+        let numCorrect = 0; // TODO: Figure this out
+        let numMisplaced = 0; // TODO: Figure this out
 
+        // Loop through the characters and count the ones at the correct spot as well as the ones at a misplaced spot
+        for (let i = 0; i < guess.length; i++) {
+          if (state.solution[i] === guess[i]) {
+            numCorrect++;
+          } else if (state.solution.indexOf(guess[i]) >= 0) {
+            numMisplaced++;
+          }
+        }
+
+        // Log to console for ease of demo
+        console.log(`Guessed ${guess}. # Correct: ${numCorrect}, # Misplaced: ${numMisplaced}`);
+
+        // Add it to the history
+        const move: GameMove = new GameMove(guess, numCorrect, numMisplaced);
         state.history.push(move);
+
+        // Decrement our turn count
         state.movesLeft--;
       } else {
         console.error('The guess ' + guess + ' did not match the expected length of ' + state.solution.length);
