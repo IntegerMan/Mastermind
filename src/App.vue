@@ -26,7 +26,6 @@ export default Vue.extend({
   },
   store: store,
   created: () => {
-    console.log('App created!');
     store.dispatch("restart");
   },
   methods: {

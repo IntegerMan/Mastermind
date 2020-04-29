@@ -20,15 +20,9 @@
 import ColorChooser from "./ColorChooser.vue";
 
 export default {
-  data: () => {
-    return {
-      guess: ["Red", "Orange", "Yellow", "Green"]
-    };
-  },
   methods: {
     submitGuess(): void {
-      console.log("Guessing " + this.guess, this.$store.state);
-      this.$store.dispatch("guess", this.guess);
+      this.$store.dispatch("guess");
     }
   },
   components: {
@@ -45,7 +39,7 @@ export default {
       return this.$store.getters.remainingGuesses;
     },
     slots(): string[] {
-      return this.guess;
+      return this.$store.getters.guess;
     }
   }
 };

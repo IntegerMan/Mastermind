@@ -7,12 +7,13 @@
 </template>
 
 <script lang="ts">
+import { ColorChoice } from "../models/ColorChoice";
 export default {
   props: {
     index: Number
   },
   data: function() {
-    return { choice: "Red" };
+    return { choice: "" };
   },
   computed: {
     options(): string[] {
@@ -21,11 +22,12 @@ export default {
   },
   methods: {
     onSelected(): void {
-      console.log("Index " + this.index + " Select " + this.choice);
+      const choice = new ColorChoice(this.index, this.choice);
+      this.$store.dispatch("changeColor", choice);
     }
   },
   created() {
-    this.choice = this.$store.getters.availableOptions[this.index];
+    this.choice = this.$store.getters.guess[this.index];
   }
 };
 </script>
