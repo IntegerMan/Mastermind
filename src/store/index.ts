@@ -5,6 +5,7 @@ import { ColorChoice } from '@/models/ColorChoice';
 
 Vue.use(Vuex);
 
+const numGuesses = 10;
 const solutionLength = 4;
 const choices = ['Blue', 'Green', 'Orange', 'Violet', 'Red', 'Yellow'];
 
@@ -40,7 +41,7 @@ function generateSolution(): string {
 export default new Vuex.Store({
   state: {
     isGameOver: false,
-    movesLeft: 10,
+    movesLeft: numGuesses,
     solution: generateSolution(),
     history: [new GameMove('This exists only to give Vuex some type insights', 0, 0)],
     message: '',
@@ -50,7 +51,7 @@ export default new Vuex.Store({
     reset(state): void {
       console.log('Resetting game state');
       state.isGameOver = false;
-      state.movesLeft = 10;
+      state.movesLeft = numGuesses;
       state.solution = generateSolution(),
       state.history = [];
       state.message = '';
