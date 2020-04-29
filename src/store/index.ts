@@ -5,6 +5,7 @@ import { ColorChoice } from '@/models/ColorChoice';
 
 Vue.use(Vuex);
 
+const solutionLength = 4;
 const choices = ['Blue', 'Green', 'Orange', 'Violet', 'Red', 'Yellow'];
 
 function evaluateGuess(guess: string, solution: string): GameMove {
@@ -29,7 +30,7 @@ function evaluateGuess(guess: string, solution: string): GameMove {
   return new GameMove(guess, numCorrect, numMisplaced);
 }
 
-function generateSolution(solutionLength: number): string {
+function generateSolution(): string {
   return choices.map(c => c[0]) // Only pay attention to the first letter of each color
                 .sort((a, b) => 0.5 - Math.random()) // Random sort order - we want to either increase or decrease the item, so we need a range between -0.5 and 0.5
                 .slice(0, solutionLength) // Take the first X of those
@@ -40,19 +41,19 @@ export default new Vuex.Store({
   state: {
     isGameOver: false,
     movesLeft: 10,
-    solution: generateSolution(4),
+    solution: generateSolution(),
     history: [new GameMove('This exists only to give Vuex some type insights', 0, 0)],
-    message: 'Enter your guess',
-    guess: ['Red', 'Orange', 'Yellow', 'Violet']
+    message: '',
+    guess: choices.map(c => c).splice(0, solutionLength)
   },
   mutations: {
     reset(state): void {
       console.log('Resetting game state');
       state.isGameOver = false;
       state.movesLeft = 10;
-      state.solution = generateSolution(state.solution.length),
+      state.solution = generateSolution(),
       state.history = [];
-      state.message = 'Enter your guess';
+      state.message = '';
     },
     addGuess(state, move: GameMove): void {
       state.history.push(move);

@@ -7,8 +7,8 @@
       <a href="https://www.LinkedIn.com/in/MattEland">Matt Eland</a> as a
       learning exercise for Vue.js and Vuex.
     </p>
-    <p class="message">{{ message }}</p>
     <HistoryList />
+    <p v-show="message" class="message">{{ message }}</p>
     <div v-show="!isGameOver">
       <h2>Your Guess</h2>
       <enter-guess />

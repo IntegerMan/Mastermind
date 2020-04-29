@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="moves.length">
     <h2>Past Guesses</h2>
     <HistoryEntry
       v-for="(move, index) of moves"
