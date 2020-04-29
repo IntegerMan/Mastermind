@@ -19,10 +19,7 @@ export default {
   },
   computed: {
     moves(): GameMove[] {
-      return this.$store.state.history;
-    },
-    movesLeft(): number {
-      return this.$store.state.movesLeft;
+      return this.$store.getters.guesses;
     }
   }
 };

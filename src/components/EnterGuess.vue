@@ -8,9 +8,10 @@
         id="yourGuess"
         :maxlength="guessLength"
         :minlength="guessLength"
+        :disabled="isGameOver"
         v-model="guess"
       />
-      <button type="submit">Guess</button>
+      <button type="submit" :disabled="isGameOver">Guess</button>
     </form>
     <turns-remaining />
   </div>
@@ -31,12 +32,15 @@ export default {
   methods: {
     submitGuess(): void {
       console.log("Guessing " + this.guess, this.$store.state);
-      this.$store.commit("guess", this.guess);
+      this.$store.dispatch("guess", this.guess);
     }
   },
   computed: {
     guessLength(): number {
-      return 4; // TODO: Get from store
+      return this.$store.getters.solutionLength;
+    },
+    isGameOver(): boolean {
+      return this.$store.getters.isGameOver;
     }
   }
 };

@@ -26,11 +26,11 @@ export default Vue.extend({
   store: store,
   created: () => {
     console.log('App created!');
-    store.commit("reset");
+    store.dispatch("restart");
   },
   methods: {
     reset(): void {
-      store.commit("reset");
+      store.dispatch("restart");
     }
   }
 });

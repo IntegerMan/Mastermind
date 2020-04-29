@@ -1,12 +1,12 @@
 <template>
-  <p>You have {{ movesLeft }} move(s) remaining.</p>
+  <p>{{ movesLeft }}</p>
 </template>
 
 <script lang="ts">
 export default {
   computed: {
     movesLeft(): number {
-      return this.$store.state.movesLeft;
+      return this.$store.getters.remainingGuesses;
     }
   }
 };
