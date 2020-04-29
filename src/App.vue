@@ -8,7 +8,9 @@
       <h2>Your Guess</h2>
       <enter-guess />
     </div>
-    <a @click="reset" href="#">Restart Game</a>
+    <div class="restart">
+      <a @click="reset" href="#">Restart Game</a>
+    </div>
   </div>
 </template>
 
@@ -57,5 +59,8 @@ export default Vue.extend({
   font-weight: bold;
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+.restart {
+  margin-top: 2rem;
 }
 </style>
