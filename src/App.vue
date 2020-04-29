@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <h1>Mastermind</h1>
-    <p>Kata implementation by Matt Eland</p>
+    <p>
+      Kata implementation for
+      <a href="https://www.TechElevator.com">Tech Elevator</a> by
+      <a href="https://www.LinkedIn.com/in/MattEland">Matt Eland</a> as a
+      learning exercise for Vue.js and Vuex.
+    </p>
     <p class="message">{{ message }}</p>
     <HistoryList />
     <div v-show="!isGameOver">
