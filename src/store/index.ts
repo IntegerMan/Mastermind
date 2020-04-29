@@ -25,19 +25,27 @@ function evaluateGuess(guess: string, solution: string): GameMove {
   return move;
 }
 
+function generateSolution(solutionLength: number): string {
+  const options = ['1','2','3','4','5','6','7'];
+
+  return options.sort((a, b) => 0.5 - Math.random()) // Random sort order - we want to either increase or decrease the item, so we need a range between -0.5 and 0.5
+                .slice(0, solutionLength) // Take the first X of those
+                .join(''); // Group them all together into a string without delimiters
+}
+
 export default new Vuex.Store({
   state: {
     isGameOver: false,
     movesLeft: 10,
-    solution: 'Replaced once the application starts and reset is called',
-    history: [new GameMove('History will be cleared', 0, 0)]
+    solution: generateSolution(4),
+    history: [new GameMove('This exists only to give Vuex some type insights', 0, 0)]
   },
   mutations: {
     reset(state): void {
       console.log('Resetting game state');
       state.isGameOver = false;
       state.movesLeft = 10;
-      state.solution = '1234'; // TODO: Randomly generate
+      state.solution = generateSolution(state.solution.length),
       state.history = [];
     },
     addGuess(state, move: GameMove): void {
