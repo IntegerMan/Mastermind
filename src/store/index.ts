@@ -4,6 +4,8 @@ import { GameMove } from '@/models/GameMove';
 
 Vue.use(Vuex);
 
+const choices = ['Blue', 'Green', 'Orange', 'Violet', 'Red', 'Yellow'];
+
 function evaluateGuess(guess: string, solution: string): GameMove {
   let numCorrect = 0;
   let numMisplaced = 0;
@@ -26,9 +28,7 @@ function evaluateGuess(guess: string, solution: string): GameMove {
 }
 
 function generateSolution(solutionLength: number): string {
-  const options = ['B','G','O','V','R','Y'];
-
-  return options.sort((a, b) => 0.5 - Math.random()) // Random sort order - we want to either increase or decrease the item, so we need a range between -0.5 and 0.5
+  return choices.sort((a, b) => 0.5 - Math.random()) // Random sort order - we want to either increase or decrease the item, so we need a range between -0.5 and 0.5
                 .slice(0, solutionLength) // Take the first X of those
                 .join(''); // Group them all together into a string without delimiters
 }
@@ -100,7 +100,8 @@ export default new Vuex.Store({
     solutionLength: s => s.solution.length,
     guesses: s => s.history,
     isGameOver: s => s.isGameOver,
-    message: s => s.message
+    message: s => s.message,
+    availableOptions: s => choices,
   },
   modules: {}
 });

@@ -1,28 +1,28 @@
 <template>
   <div>
     <form @submit.prevent="submitGuess">
-      <label for="yourGuess">What is your guess?</label>
-      <input
-        type="text"
-        placeholder="Enter Guess"
-        id="yourGuess"
-        :maxlength="guessLength"
-        :minlength="guessLength"
-        :disabled="isGameOver"
-        v-model="guess"
-      />
+      <p class="prompt">What is your guess?</p>
+
+      <color-chooser
+        class="colorChooser"
+        v-for="(slot, index) in slots"
+        v-bind:key="index"
+        :index="index"
+      ></color-chooser>
+
       <button type="submit" :disabled="isGameOver">Guess</button>
-      <span>{{ movesLeft }}</span>
     </form>
-    <p>Valid Options are B, G, O, V, R, and Y</p>
+    <p>{{ movesLeft }}</p>
   </div>
 </template>
 
 <script lang="ts">
+import ColorChooser from "./ColorChooser.vue";
+
 export default {
   data: () => {
     return {
-      guess: ""
+      guess: ["Red", "Orange", "Yellow", "Green"]
     };
   },
   methods: {
@@ -30,6 +30,9 @@ export default {
       console.log("Guessing " + this.guess, this.$store.state);
       this.$store.dispatch("guess", this.guess);
     }
+  },
+  components: {
+    ColorChooser
   },
   computed: {
     guessLength(): number {
@@ -40,6 +43,9 @@ export default {
     },
     movesLeft(): number {
       return this.$store.getters.remainingGuesses;
+    },
+    slots(): string[] {
+      return this.guess;
     }
   }
 };
@@ -47,12 +53,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-input {
-  margin-left: 1rem;
-  width: 100px;
-}
 button {
-  margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+.colorChooser {
+  margin-right: 1rem;
 }
 </style>
