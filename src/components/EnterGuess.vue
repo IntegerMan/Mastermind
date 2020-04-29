@@ -12,21 +12,17 @@
         v-model="guess"
       />
       <button type="submit" :disabled="isGameOver">Guess</button>
+      <span>{{ movesLeft }}</span>
     </form>
-    <turns-remaining />
+    <p>Valid Options are B, G, O, V, R, and Y</p>
   </div>
 </template>
 
 <script lang="ts">
-import TurnsRemaining from "./TurnsRemaining.vue";
-
 export default {
-  components: {
-    TurnsRemaining
-  },
   data: () => {
     return {
-      guess: "1234"
+      guess: ""
     };
   },
   methods: {
@@ -41,6 +37,9 @@ export default {
     },
     isGameOver(): boolean {
       return this.$store.getters.isGameOver;
+    },
+    movesLeft(): number {
+      return this.$store.getters.remainingGuesses;
     }
   }
 };
@@ -54,5 +53,6 @@ input {
 }
 button {
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 </style>

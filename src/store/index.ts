@@ -26,7 +26,7 @@ function evaluateGuess(guess: string, solution: string): GameMove {
 }
 
 function generateSolution(solutionLength: number): string {
-  const options = ['1','2','3','4','5','6','7'];
+  const options = ['B','G','O','V','R','Y'];
 
   return options.sort((a, b) => 0.5 - Math.random()) // Random sort order - we want to either increase or decrease the item, so we need a range between -0.5 and 0.5
                 .slice(0, solutionLength) // Take the first X of those
@@ -38,7 +38,8 @@ export default new Vuex.Store({
     isGameOver: false,
     movesLeft: 10,
     solution: generateSolution(4),
-    history: [new GameMove('This exists only to give Vuex some type insights', 0, 0)]
+    history: [new GameMove('This exists only to give Vuex some type insights', 0, 0)],
+    message: 'Enter your guess'
   },
   mutations: {
     reset(state): void {
@@ -47,14 +48,29 @@ export default new Vuex.Store({
       state.movesLeft = 10;
       state.solution = generateSolution(state.solution.length),
       state.history = [];
+      state.message = 'Enter your guess';
     },
     addGuess(state, move: GameMove): void {
       state.history.push(move);
 
-      // Decrement our turn count and check for game over
-      if (--state.movesLeft <= 0) {
+
+      // Check for game won
+      if (move.exactlyCorrect === state.solution.length) {
         state.isGameOver = true;
+        state.message = 'You win!';
       }
+      // Decrement our turn count and check for game over
+      else if (--state.movesLeft <= 0) {
+        state.isGameOver = true;
+        state.message = 'You lost yet again.';
+      }
+      
+    },
+    setMessage(state, message: string): void {
+      if (console && console.log) {
+        console.log(message);
+      }
+      state.message = message;
     }
   },
   actions: {
@@ -64,7 +80,7 @@ export default new Vuex.Store({
         const move: GameMove = evaluateGuess(guess, context.state.solution);
         context.commit("addGuess", move);
       } else {
-        console.error('The guess ' + guess + ' did not match the expected length of ' + context.state.solution.length);
+        context.commit('setMessage', `The guess ${guess} did not match the expected length of ${context.state.solution.length}`);
       }
     },
     restart(context): void {
@@ -83,7 +99,8 @@ export default new Vuex.Store({
     },
     solutionLength: s => s.solution.length,
     guesses: s => s.history,
-    isGameOver: s => s.isGameOver
+    isGameOver: s => s.isGameOver,
+    message: s => s.message
   },
   modules: {}
 });

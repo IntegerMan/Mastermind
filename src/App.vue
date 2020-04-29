@@ -2,8 +2,9 @@
   <div id="app">
     <h1>Mastermind</h1>
     <p>Kata implementation by Matt Eland</p>
+    <p class="message">{{ message }}</p>
     <HistoryList />
-    <div>
+    <div v-show="!isGameOver">
       <h2>Your Guess</h2>
       <enter-guess />
     </div>
@@ -32,6 +33,14 @@ export default Vue.extend({
     reset(): void {
       store.dispatch("restart");
     }
+  },
+  computed: {
+    isGameOver(): boolean {
+      return store.getters.isGameOver;
+    },
+    message(): string {
+      return store.getters.message;
+    }
   }
 });
 </script>
@@ -44,5 +53,10 @@ export default Vue.extend({
   color: #2c3e50;
   margin-top: 2rem;
   margin-left: 2rem;
+}
+.message {
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 </style>
